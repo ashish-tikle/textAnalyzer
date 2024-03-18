@@ -1,24 +1,24 @@
 import logging
-# from google.cloud import storage
+from google.cloud import storage
 
 class DocumentGenerator:
-    # def __init__(self, bucket_name):
-    #     self.bucket_name = bucket_name
-    #     self.storage_client = storage.Client()
+    def __init__(self, bucket_name):
+        self.bucket_name = bucket_name
+        self.storage_client = storage.Client()
 
-    # def fetch_documents_from_storage(self):
-    #     try:
-    #         bucket = self.storage_client.get_bucket(self.bucket_name)
-    #         blobs = bucket.list_blobs()
-    #         documents = []
-    #         for blob in blobs:
-    #             if blob.name.endswith('.txt'):  # Process only text files
-    #                 document = blob.download_as_string().decode('utf-8')
-    #                 documents.append(document)
-    #         return documents
-    #     except Exception as e:
-    #         logging.error("Error occurred while fetching documents from storage: %s", str(e))
-    #         return []
+    def fetch_documents_from_storage(self):
+        try:
+            bucket = self.storage_client.get_bucket(self.bucket_name)
+            blobs = bucket.list_blobs()
+            documents = []
+            for blob in blobs:
+                if blob.name.endswith('.txt'):  # Process only text files
+                    document = blob.download_as_string().decode('utf-8')
+                    documents.append(document)
+            return documents
+        except Exception as e:
+            logging.error("Error occurred while fetching documents from storage: %s", str(e))
+            return []
 
     def process_documents(self, analyzer):
         documents = self.fetch_documents_from_storage()
